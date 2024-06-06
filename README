@@ -1,0 +1,6 @@
+firmware
+========
+
+This is a collection of firmware binaries.
+
+So far, we have loongarch64 EDK2 QEMU firmware under loongarch64/.
