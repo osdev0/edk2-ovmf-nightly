@@ -44,21 +44,18 @@ jobs:
           make -C edk2/BaseTools
 
           build -b RELEASE -t GCC5 -a AARCH64 -p ArmVirtPkg/ArmVirtQemu.dsc
-          build -b RELEASE -t GCC5 -a IA32 -p OvmfPkg/OvmfPkgIa32.dsc
+          build -b RELEASE -t GCC5 -a IA32 -p OvmfPkg/OvmfPkgIa32.dsc -D FD_SIZE_2MB
           build -b RELEASE -t GCC5 -a LOONGARCH64 -p OvmfPkg/LoongArchVirt/LoongArchVirtQemu.dsc
           build -b RELEASE -t GCC5 -a RISCV64 -p OvmfPkg/RiscVVirt/RiscVVirtQemu.dsc
-          build -b RELEASE -t GCC5 -a X64 -p OvmfPkg/OvmfPkgX64.dsc
+          build -b RELEASE -t GCC5 -a X64 -p OvmfPkg/OvmfPkgX64.dsc -D FD_SIZE_2MB
 
           mkdir -p output
 
-          cp Build/OvmfX64/RELEASE_GCC5/FV/OVMF_CODE.fd output/ovmf-code-x86-64.fd
-          cp Build/OvmfX64/RELEASE_GCC5/FV/OVMF_VARS.fd output/ovmf-vars-x86-64.fd
+          cp Build/ArmVirtQemu-AARCH64/RELEASE_GCC5/FV/QEMU_EFI.fd  output/ovmf-code-aarch64.fd
+          cp Build/ArmVirtQemu-AARCH64/RELEASE_GCC5/FV/QEMU_VARS.fd output/ovmf-vars-aarch64.fd
 
           cp Build/OvmfIa32/RELEASE_GCC5/FV/OVMF_CODE.fd output/ovmf-code-ia32.fd
           cp Build/OvmfIa32/RELEASE_GCC5/FV/OVMF_VARS.fd output/ovmf-vars-ia32.fd
-
-          cp Build/ArmVirtQemu-AARCH64/RELEASE_GCC5/FV/QEMU_EFI.fd  output/ovmf-code-aarch64.fd
-          cp Build/ArmVirtQemu-AARCH64/RELEASE_GCC5/FV/QEMU_VARS.fd output/ovmf-vars-aarch64.fd
 
           cp Build/LoongArchVirtQemu/RELEASE_GCC5/FV/QEMU_EFI.fd  output/ovmf-code-loongarch64.fd
           cp Build/LoongArchVirtQemu/RELEASE_GCC5/FV/QEMU_VARS.fd output/ovmf-vars-loongarch64.fd
@@ -66,6 +63,9 @@ jobs:
           cp Build/RiscVVirtQemu/RELEASE_GCC5/FV/RISCV_VIRT_CODE.fd output/ovmf-code-riscv64.fd
           dd if=/dev/zero of=output/ovmf-code-riscv64.fd bs=1 count=0 seek=33554432
           cp Build/RiscVVirtQemu/RELEASE_GCC5/FV/RISCV_VIRT_VARS.fd output/ovmf-vars-riscv64.fd
+
+          cp Build/OvmfX64/RELEASE_GCC5/FV/OVMF_CODE.fd output/ovmf-code-x86_64.fd
+          cp Build/OvmfX64/RELEASE_GCC5/FV/OVMF_VARS.fd output/ovmf-vars-x86_64.fd
 
       - name: Set TAG_DATE variable
         run: echo "TAG_DATE=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
