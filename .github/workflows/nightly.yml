@@ -46,7 +46,7 @@ jobs:
           make -C edk2/BaseTools
 
           # EDK2 does not seem to respect our compiler wishes for x86, so uninstall it
-          pacman -Rs --noconfirm base-devel gcc binutils
+          pacman -Rs --noconfirm gcc binutils
 
           build -b RELEASE -t GCC5 -a AARCH64 -p ArmVirtPkg/ArmVirtQemu.dsc
           build -b RELEASE -t GCC5 -a IA32 -p OvmfPkg/OvmfPkgIa32.dsc
