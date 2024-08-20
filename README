@@ -1,6 +1,7 @@
-firmware
-========
+edk2-ovmf-nightly
+=================
 
-This is a collection of firmware binaries.
+This repository uses GitHub workflows to build nightly images of EDK2 OVMF
+firmware for QEMU.
 
-So far, we have loongarch64 EDK2 QEMU firmware under loongarch64/.
+See Releases.

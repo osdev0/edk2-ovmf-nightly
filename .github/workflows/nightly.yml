@@ -64,6 +64,7 @@ jobs:
           cp Build/LoongArchVirtQemu/RELEASE_GCC5/FV/QEMU_VARS.fd output/ovmf-vars-loongarch64.fd
 
           cp Build/RiscVVirtQemu/RELEASE_GCC5/FV/RISCV_VIRT_CODE.fd output/ovmf-code-riscv64.fd
+          dd if=/dev/zero of=output/ovmf-code-riscv64.fd bs=1 count=0 seek=33554432
           cp Build/RiscVVirtQemu/RELEASE_GCC5/FV/RISCV_VIRT_VARS.fd output/ovmf-vars-riscv64.fd
 
       - name: Set TAG_DATE variable
