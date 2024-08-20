@@ -1,0 +1,91 @@
+name: Nightly EDK2 OVMF Build
+
+on:
+  schedule:
+    - cron: '0 11 * * *'
+
+jobs:
+  nightly:
+    name: Nightly EDK2 OVMF Build
+    runs-on: ubuntu-latest
+    container: archlinux:latest
+
+    steps:
+      - name: Install dependencies
+        run: pacman --noconfirm -Syu && pacman --needed --noconfirm -S base-devel git wget
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Git config
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+      - name: Rebuild
+        run: |
+          set -ex
+
+          GCC_VERSION=14.2.0
+
+          for i in aarch64 i386 loongarch64 riscv64 x86_64; do
+              wget https://mirrors.edge.kernel.org/pub/tools/crosstool/files/bin/x86_64/$GCC_VERSION/x86_64-gcc-$GCC_VERSION-nolibc-$i-linux.tar.gz
+              tar -xf x86_64-gcc-$GCC_VERSION-nolibc-$i-linux.tar.gz
+              export PATH="$(pwd -P)"/gcc-$GCC_VERSION-nolibc/$i-linux/bin:"$PATH"
+          done
+
+          git clone --recursive --depth=1 https://github.com/tianocore/edk2.git
+
+          export PACKAGES_PATH="$(pwd -P)"/edk2
+
+          export GCC5_AARCH64_PREFIX=aarch64-linux-
+          export GCC5_IA32_PREFIX=i386-linux-
+          export GCC5_LOONGARCH64_PREFIX=loongarch64-linux-
+          export GCC5_RISCV64_PREFIX=riscv64-linux-
+          export GCC5_X64_PREFIX=x86_64-linux-
+
+          set +e
+          . edk2/edksetup.sh
+          set -e
+          make -C edk2/BaseTools
+
+          # EDK2 does not seem to respect our compiler wishes for x86, so uninstall it
+          pacman -Rs --noconfirm base-devel gcc binutils
+
+          build -b RELEASE -t GCC5 -a AARCH64 -p ArmVirtPkg/ArmVirtQemu.dsc
+          build -b RELEASE -t GCC5 -a IA32 -p OvmfPkg/OvmfPkgIa32.dsc
+          build -b RELEASE -t GCC5 -a LOONGARCH64 -p OvmfPkg/LoongArchVirt/LoongArchVirtQemu.dsc
+          build -b RELEASE -t GCC5 -a RISCV64 -p OvmfPkg/RiscVVirt/RiscVVirtQemu.dsc
+          build -b RELEASE -t GCC5 -a X64 -p OvmfPkg/OvmfPkgX64.dsc
+
+          mkdir -p output
+
+          cp Build/OvmfX64/RELEASE_GCC5/FV/OVMF_CODE.fd output/ovmf-code-x86-64.fd
+          cp Build/OvmfX64/RELEASE_GCC5/FV/OVMF_VARS.fd output/ovmf-vars-x86-64.fd
+
+          cp Build/OvmfIa32/RELEASE_GCC5/FV/OVMF_CODE.fd output/ovmf-code-ia32.fd
+          cp Build/OvmfIa32/RELEASE_GCC5/FV/OVMF_VARS.fd output/ovmf-vars-ia32.fd
+
+          cp Build/ArmVirtQemu-AARCH64/RELEASE_GCC5/FV/QEMU_EFI.fd  output/ovmf-code-aarch64.fd
+          cp Build/ArmVirtQemu-AARCH64/RELEASE_GCC5/FV/QEMU_VARS.fd output/ovmf-vars-aarch64.fd
+
+          cp Build/LoongArchVirtQemu/RELEASE_GCC5/FV/QEMU_EFI.fd  output/ovmf-code-loongarch64.fd
+          cp Build/LoongArchVirtQemu/RELEASE_GCC5/FV/QEMU_VARS.fd output/ovmf-vars-loongarch64.fd
+
+          cp Build/RiscVVirtQemu/RELEASE_GCC5/FV/RISCV_VIRT_CODE.fd output/ovmf-code-riscv64.fd
+          cp Build/RiscVVirtQemu/RELEASE_GCC5/FV/RISCV_VIRT_VARS.fd output/ovmf-vars-riscv64.fd
+
+      - name: Set TAG_DATE variable
+        run: echo "TAG_DATE=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+
+      - name: Tag new nightly release
+        run: git tag nightly-$TAG_DATE && git push --tags
+
+      - name: Create nightly release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: Nightly Build ${{ env.TAG_DATE }}
+          tag_name: nightly-${{ env.TAG_DATE }}
+          body: Images of an up to date EDK2 OVMF nightly build.
+          files: |
+            output/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
