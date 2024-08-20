@@ -1,0 +1,92 @@
+diff --git a/ArmVirtPkg/ArmVirtQemu.dsc b/ArmVirtPkg/ArmVirtQemu.dsc
+index 713710c..e39ba88 100644
+--- a/ArmVirtPkg/ArmVirtQemu.dsc
++++ b/ArmVirtPkg/ArmVirtQemu.dsc
+@@ -246,7 +246,7 @@
+   gEfiMdeModulePkgTokenSpaceGuid.PcdSmbiosEntryPointProvideMethod|0x2
+ 
+ [PcdsDynamicDefault.common]
+-  gEfiMdePkgTokenSpaceGuid.PcdPlatformBootTimeOut|3
++  gEfiMdePkgTokenSpaceGuid.PcdPlatformBootTimeOut|0
+ 
+   gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareBase     | 0
+   gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareBase64   | 0
+@@ -285,8 +285,8 @@
+   # Set video resolution for boot options and for text setup.
+   # PlatformDxe can set the former at runtime.
+   #
+-  gEfiMdeModulePkgTokenSpaceGuid.PcdVideoHorizontalResolution|1280
+-  gEfiMdeModulePkgTokenSpaceGuid.PcdVideoVerticalResolution|800
++  gEfiMdeModulePkgTokenSpaceGuid.PcdVideoHorizontalResolution|1024
++  gEfiMdeModulePkgTokenSpaceGuid.PcdVideoVerticalResolution|768
+   gEfiMdeModulePkgTokenSpaceGuid.PcdSetupVideoHorizontalResolution|640
+   gEfiMdeModulePkgTokenSpaceGuid.PcdSetupVideoVerticalResolution|480
+   gEfiMdeModulePkgTokenSpaceGuid.PcdConOutRow|0
+@@ -327,7 +327,7 @@
+   gEfiSecurityPkgTokenSpaceGuid.PcdTpm2AcpiTableRev|L"TCG2_VERSION"|gTcg2ConfigFormSetGuid|0x8|3|NV,BS
+ !endif
+ 
+-  gEfiMdePkgTokenSpaceGuid.PcdPlatformBootTimeOut|L"Timeout"|gEfiGlobalVariableGuid|0x0|5
++  gEfiMdePkgTokenSpaceGuid.PcdPlatformBootTimeOut|L"Timeout"|gEfiGlobalVariableGuid|0x0|0
+ 
+ [LibraryClasses.common.PEI_CORE, LibraryClasses.common.PEIM]
+ !if $(TPM2_ENABLE) == TRUE
+diff --git a/OvmfPkg/LoongArchVirt/LoongArchVirtQemu.dsc b/OvmfPkg/LoongArchVirt/LoongArchVirtQemu.dsc
+index 29c945b..b364a52 100644
+--- a/OvmfPkg/LoongArchVirt/LoongArchVirtQemu.dsc
++++ b/OvmfPkg/LoongArchVirt/LoongArchVirtQemu.dsc
+@@ -395,9 +395,9 @@
+   gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwWorkingBase64     | 0
+   gEfiMdeModulePkgTokenSpaceGuid.PcdEmuVariableNvStoreReserved         | 0
+   gEfiMdeModulePkgTokenSpaceGuid.PcdPciDisableBusEnumeration           | FALSE
+-  gEfiMdeModulePkgTokenSpaceGuid.PcdVideoHorizontalResolution          | 800
+-  gEfiMdeModulePkgTokenSpaceGuid.PcdVideoVerticalResolution            | 600
+-  gEfiMdePkgTokenSpaceGuid.PcdPlatformBootTimeOut                      | 3
++  gEfiMdeModulePkgTokenSpaceGuid.PcdVideoHorizontalResolution          | 1024
++  gEfiMdeModulePkgTokenSpaceGuid.PcdVideoVerticalResolution            | 768
++  gEfiMdePkgTokenSpaceGuid.PcdPlatformBootTimeOut                      | 0
+ 
+   # Set video resolution for text setup.
+   gEfiMdeModulePkgTokenSpaceGuid.PcdSetupVideoHorizontalResolution     | 640
+@@ -428,7 +428,7 @@
+   gUefiOvmfPkgTokenSpaceGuid.PcdQemuSmbiosValidated|TRUE
+ 
+ [PcdsDynamicHii]
+-  gEfiMdePkgTokenSpaceGuid.PcdPlatformBootTimeOut|L"Timeout"|gEfiGlobalVariableGuid|0x0|3
++  gEfiMdePkgTokenSpaceGuid.PcdPlatformBootTimeOut|L"Timeout"|gEfiGlobalVariableGuid|0x0|0
+ 
+ [PcdsPatchableInModule.common]
+   gEfiMdeModulePkgTokenSpaceGuid.PcdSerialRegisterBase|0x0
+diff --git a/OvmfPkg/RiscVVirt/RiscVVirtQemu.dsc b/OvmfPkg/RiscVVirt/RiscVVirtQemu.dsc
+index e0ed6fb..6a7212b 100644
+--- a/OvmfPkg/RiscVVirt/RiscVVirtQemu.dsc
++++ b/OvmfPkg/RiscVVirt/RiscVVirtQemu.dsc
+@@ -182,7 +182,7 @@
+   gEfiMdeModulePkgTokenSpaceGuid.PcdSmbiosEntryPointProvideMethod|0x2
+ 
+ [PcdsDynamicDefault.common]
+-  gEfiMdePkgTokenSpaceGuid.PcdPlatformBootTimeOut|3
++  gEfiMdePkgTokenSpaceGuid.PcdPlatformBootTimeOut|0
+ 
+   ## If TRUE, OvmfPkg/AcpiPlatformDxe will not wait for PCI
+   #  enumeration to complete before installing ACPI tables.
+@@ -198,8 +198,8 @@
+   # Set video resolution for boot options and for text setup.
+   # PlatformDxe can set the former at runtime.
+   #
+-  gEfiMdeModulePkgTokenSpaceGuid.PcdVideoHorizontalResolution|1280
+-  gEfiMdeModulePkgTokenSpaceGuid.PcdVideoVerticalResolution|800
++  gEfiMdeModulePkgTokenSpaceGuid.PcdVideoHorizontalResolution|1024
++  gEfiMdeModulePkgTokenSpaceGuid.PcdVideoVerticalResolution|768
+   gEfiMdeModulePkgTokenSpaceGuid.PcdSetupVideoHorizontalResolution|640
+   gEfiMdeModulePkgTokenSpaceGuid.PcdSetupVideoVerticalResolution|480
+   gEfiMdeModulePkgTokenSpaceGuid.PcdConOutRow|0
+@@ -245,7 +245,7 @@
+   gEfiSecurityPkgTokenSpaceGuid.PcdTpm2AcpiTableRev|L"TCG2_VERSION"|gTcg2ConfigFormSetGuid|0x8|3|NV,BS
+ !endif
+ 
+-  gEfiMdePkgTokenSpaceGuid.PcdPlatformBootTimeOut|L"Timeout"|gEfiGlobalVariableGuid|0x0|5
++  gEfiMdePkgTokenSpaceGuid.PcdPlatformBootTimeOut|L"Timeout"|gEfiGlobalVariableGuid|0x0|0
+ 
+ [LibraryClasses.common.PEI_CORE, LibraryClasses.common.PEIM]
+ !if $(TPM2_ENABLE) == TRUE

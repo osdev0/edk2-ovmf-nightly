@@ -32,6 +32,8 @@ jobs:
 
           git clone --recursive --depth=1 https://github.com/tianocore/edk2.git
 
+          git -C edk2 apply ../ovmf.patch
+
           export PACKAGES_PATH="$(pwd -P)"/edk2
 
           export GCC5_AARCH64_PREFIX=aarch64-linux-
