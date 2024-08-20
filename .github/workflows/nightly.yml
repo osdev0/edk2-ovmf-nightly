@@ -1,6 +1,8 @@
 name: Nightly EDK2 OVMF Build
 
-on: [push]
+on:
+  schedule:
+    - cron: '0 0 * * *'
 
 jobs:
   nightly:
