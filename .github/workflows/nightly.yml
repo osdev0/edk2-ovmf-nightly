@@ -24,7 +24,7 @@ jobs:
 
           GCC_VERSION=14.2.0
 
-          for i in aarch64 i386 loongarch64 riscv64 x86_64; do
+          for i in aarch64 loongarch64 riscv64; do
               wget https://mirrors.edge.kernel.org/pub/tools/crosstool/files/bin/x86_64/$GCC_VERSION/x86_64-gcc-$GCC_VERSION-nolibc-$i-linux.tar.gz
               tar -xf x86_64-gcc-$GCC_VERSION-nolibc-$i-linux.tar.gz
               export PATH="$(pwd -P)"/gcc-$GCC_VERSION-nolibc/$i-linux/bin:"$PATH"
@@ -35,19 +35,13 @@ jobs:
           export PACKAGES_PATH="$(pwd -P)"/edk2
 
           export GCC5_AARCH64_PREFIX=aarch64-linux-
-          export GCC5_IA32_PREFIX=i386-linux-
           export GCC5_LOONGARCH64_PREFIX=loongarch64-linux-
           export GCC5_RISCV64_PREFIX=riscv64-linux-
-          export GCC5_X64_PREFIX=x86_64-linux-
 
           set +e
           . edk2/edksetup.sh
           set -e
           make -C edk2/BaseTools
-
-          # EDK2 does not seem to respect our compiler wishes for x86, so uninstall it
-          pacman -R --noconfirm base-devel
-          pacman -Rs --noconfirm gcc binutils
 
           build -b RELEASE -t GCC5 -a AARCH64 -p ArmVirtPkg/ArmVirtQemu.dsc
           build -b RELEASE -t GCC5 -a IA32 -p OvmfPkg/OvmfPkgIa32.dsc
