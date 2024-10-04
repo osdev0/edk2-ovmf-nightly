@@ -34,7 +34,7 @@ jobs:
 
           git clone --recursive --depth=1 https://github.com/tianocore/edk2.git
 
-          git -C edk2 apply ../ovmf.patch
+          ( cd edk2 && patch -p1 <../ovmf.patch )
 
           export PACKAGES_PATH="$(pwd -P)"/edk2
 
