@@ -49,6 +49,8 @@ jobs:
           set -e
           make -C edk2/BaseTools
 
+          pacman --noconfirm -Rdds gcc binutils
+
           build -b RELEASE -t GCC5 -a AARCH64 -p ArmVirtPkg/ArmVirtQemu.dsc
           build -b RELEASE -t GCC5 -a LOONGARCH64 -p OvmfPkg/LoongArchVirt/LoongArchVirtQemu.dsc
           build -b RELEASE -t GCC5 -a RISCV64 -p OvmfPkg/RiscVVirt/RiscVVirtQemu.dsc
