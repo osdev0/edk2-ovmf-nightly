@@ -32,7 +32,7 @@ jobs:
               export PATH="$(pwd -P)"/gcc-$GCC_VERSION-nolibc/$i-linux/bin:"$PATH"
           done
 
-          git clone --recursive --depth=1 https://github.com/tianocore/edk2.git
+          git clone --recursive https://github.com/tianocore/edk2.git
 
           ( cd edk2 && patch -p1 <../ovmf.patch )
 
@@ -53,8 +53,9 @@ jobs:
           build -b RELEASE -t GCC5 -a X64 -p OvmfPkg/OvmfPkgX64.dsc -D FD_SIZE_2MB
 
           # IA32 support was removed after this commit
-          git -C edk2 pull --unshallow
+          git -C edk2 stash
           git -C edk2 checkout 20f24c0f67b3364cd590e1eea470f74be40e7710
+          git -C edk2 stash pop
           build -b RELEASE -t GCC5 -a IA32 -p OvmfPkg/OvmfPkgIa32.dsc -D FD_SIZE_2MB
 
           mkdir -p output
