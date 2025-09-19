@@ -54,8 +54,8 @@ jobs:
 
           mkdir -p output
 
-          cp Build/ArmVirtQemu-Aarch64/RELEASE_GCC5/FV/QEMU_EFI.fd  output/ovmf-code-aarch64.fd
-          cp Build/ArmVirtQemu-Aarch64/RELEASE_GCC5/FV/QEMU_VARS.fd output/ovmf-vars-aarch64.fd
+          cp Build/ArmVirtQemu-AArch64/RELEASE_GCC5/FV/QEMU_EFI.fd  output/ovmf-code-aarch64.fd
+          cp Build/ArmVirtQemu-AArch64/RELEASE_GCC5/FV/QEMU_VARS.fd output/ovmf-vars-aarch64.fd
 
           cp Build/LoongArchVirtQemu/RELEASE_GCC5/FV/QEMU_EFI.fd  output/ovmf-code-loongarch64.fd
           cp Build/LoongArchVirtQemu/RELEASE_GCC5/FV/QEMU_VARS.fd output/ovmf-vars-loongarch64.fd
