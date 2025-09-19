@@ -1,8 +1,8 @@
 name: Nightly EDK2 OVMF Build
 
-on:
-  schedule:
-    - cron: '0 0 * * *'
+on: [ push ]
+#  schedule:
+#    - cron: '0 0 * * *'
 
 jobs:
   nightly:
@@ -48,10 +48,13 @@ jobs:
           make -C edk2/BaseTools
 
           build -b RELEASE -t GCC5 -a AARCH64 -p ArmVirtPkg/ArmVirtQemu.dsc
-          build -b RELEASE -t GCC5 -a IA32 -p OvmfPkg/OvmfPkgIa32.dsc -D FD_SIZE_2MB
           build -b RELEASE -t GCC5 -a LOONGARCH64 -p OvmfPkg/LoongArchVirt/LoongArchVirtQemu.dsc
           build -b RELEASE -t GCC5 -a RISCV64 -p OvmfPkg/RiscVVirt/RiscVVirtQemu.dsc
           build -b RELEASE -t GCC5 -a X64 -p OvmfPkg/OvmfPkgX64.dsc -D FD_SIZE_2MB
+
+          # IA32 support was removed after this commit
+          git checkout 20f24c0f67b3364cd590e1eea470f74be40e7710
+          build -b RELEASE -t GCC5 -a IA32 -p OvmfPkg/OvmfPkgIa32.dsc -D FD_SIZE_2MB
 
           mkdir -p output
 
