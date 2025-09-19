@@ -32,7 +32,7 @@ jobs:
               export PATH="$(pwd -P)"/gcc-$GCC_VERSION-nolibc/$i-linux/bin:"$PATH"
           done
 
-          git clone --recursive https://github.com/tianocore/edk2.git
+          git clone --recursive --depth=1 https://github.com/tianocore/edk2.git
 
           ( cd edk2 && patch -p1 <../ovmf.patch )
 
@@ -52,19 +52,10 @@ jobs:
           build -b RELEASE -t GCC5 -a RISCV64 -p OvmfPkg/RiscVVirt/RiscVVirtQemu.dsc
           build -b RELEASE -t GCC5 -a X64 -p OvmfPkg/OvmfPkgX64.dsc -D FD_SIZE_2MB
 
-          # IA32 support was removed after this commit
-          git -C edk2 stash
-          git -C edk2 checkout 20f24c0f67b3364cd590e1eea470f74be40e7710
-          git -C edk2 stash pop
-          build -b RELEASE -t GCC5 -a IA32 -p OvmfPkg/OvmfPkgIa32.dsc -D FD_SIZE_2MB
-
           mkdir -p output
 
           cp Build/ArmVirtQemu-AARCH64/RELEASE_GCC5/FV/QEMU_EFI.fd  output/ovmf-code-aarch64.fd
           cp Build/ArmVirtQemu-AARCH64/RELEASE_GCC5/FV/QEMU_VARS.fd output/ovmf-vars-aarch64.fd
-
-          cp Build/OvmfIa32/RELEASE_GCC5/FV/OVMF_CODE.fd output/ovmf-code-ia32.fd
-          cp Build/OvmfIa32/RELEASE_GCC5/FV/OVMF_VARS.fd output/ovmf-vars-ia32.fd
 
           cp Build/LoongArchVirtQemu/RELEASE_GCC5/FV/QEMU_EFI.fd  output/ovmf-code-loongarch64.fd
           cp Build/LoongArchVirtQemu/RELEASE_GCC5/FV/QEMU_VARS.fd output/ovmf-vars-loongarch64.fd
@@ -74,6 +65,11 @@ jobs:
 
           cp Build/OvmfX64/RELEASE_GCC5/FV/OVMF_CODE.fd output/ovmf-code-x86_64.fd
           cp Build/OvmfX64/RELEASE_GCC5/FV/OVMF_VARS.fd output/ovmf-vars-x86_64.fd
+
+          # Support for IA32 was dropped upstream
+          wget -O output/ovmf-code-ia32.fd https://github.com/osdev0/edk2-ovmf-nightly/releases/download/nightly-2025-09-09/ovmf-code-ia32.fd
+          wget -O output/ovmf-vars-ia32.fd https://github.com/osdev0/edk2-ovmf-nightly/releases/download/nightly-2025-09-09/ovmf-vars-ia32.fd
+
 
       - name: Set TAG_DATE variable
         run: echo "TAG_DATE=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
