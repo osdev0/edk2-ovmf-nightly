@@ -1,3 +1,16 @@
+diff --git a/ArmVirtPkg/ArmVirtCloudHv.dsc b/ArmVirtPkg/ArmVirtCloudHv.dsc
+index 2dfd286..4fdafea 100644
+--- a/ArmVirtPkg/ArmVirtCloudHv.dsc
++++ b/ArmVirtPkg/ArmVirtCloudHv.dsc
+@@ -166,7 +166,7 @@
+   gEfiMdeModulePkgTokenSpaceGuid.PcdSmbiosEntryPointProvideMethod|0x2
+ 
+ [PcdsDynamicDefault.common]
+-  gEfiMdePkgTokenSpaceGuid.PcdPlatformBootTimeOut|3
++  gEfiMdePkgTokenSpaceGuid.PcdPlatformBootTimeOut|0
+ 
+   ## If TRUE, OvmfPkg/AcpiPlatformDxe will not wait for PCI
+   #  enumeration to complete before installing ACPI tables.
 diff --git a/ArmVirtPkg/ArmVirtKvmTool.dsc b/ArmVirtPkg/ArmVirtKvmTool.dsc
 index 62ee806..f332a82 100644
 --- a/ArmVirtPkg/ArmVirtKvmTool.dsc
@@ -68,6 +81,92 @@ index ebdb7dc..e6d9749 100644
    gEfiMdeModulePkgTokenSpaceGuid.PcdSetupVideoHorizontalResolution|640
    gEfiMdeModulePkgTokenSpaceGuid.PcdSetupVideoVerticalResolution|480
    gEfiMdeModulePkgTokenSpaceGuid.PcdConOutRow|0
+diff --git a/ArmVirtPkg/ArmVirtXen.dsc b/ArmVirtPkg/ArmVirtXen.dsc
+index 2ec264a..db9dbe6 100644
+--- a/ArmVirtPkg/ArmVirtXen.dsc
++++ b/ArmVirtPkg/ArmVirtXen.dsc
+@@ -131,7 +131,7 @@
+   gArmTokenSpaceGuid.PcdGicRedistributorsBase|0x0
+   gArmTokenSpaceGuid.PcdGicInterruptInterfaceBase|0x0
+ 
+-  gEfiMdePkgTokenSpaceGuid.PcdPlatformBootTimeOut|3
++  gEfiMdePkgTokenSpaceGuid.PcdPlatformBootTimeOut|0
+ 
+ ################################################################################
+ #
+diff --git a/EmulatorPkg/EmulatorPkg.dsc b/EmulatorPkg/EmulatorPkg.dsc
+index 5bba746..6a3ddf5 100644
+--- a/EmulatorPkg/EmulatorPkg.dsc
++++ b/EmulatorPkg/EmulatorPkg.dsc
+@@ -310,7 +310,7 @@
+ [PcdsDynamicHii.common.DEFAULT]
+   gEfiMdeModulePkgTokenSpaceGuid.PcdConOutColumn|L"Setup"|gEmuSystemConfigGuid|0x0|80
+   gEfiMdeModulePkgTokenSpaceGuid.PcdConOutRow|L"Setup"|gEmuSystemConfigGuid|0x4|25
+-  gEfiMdePkgTokenSpaceGuid.PcdPlatformBootTimeOut|L"Timeout"|gEfiGlobalVariableGuid|0x0|10
++  gEfiMdePkgTokenSpaceGuid.PcdPlatformBootTimeOut|L"Timeout"|gEfiGlobalVariableGuid|0x0|0
+ 
+ [Components]
+ !if "IA32" in $(ARCH) || "X64" in $(ARCH)
+diff --git a/OvmfPkg/AmdSev/AmdSevX64.dsc b/OvmfPkg/AmdSev/AmdSevX64.dsc
+index 8e7e69d..a49d2f5 100644
+--- a/OvmfPkg/AmdSev/AmdSevX64.dsc
++++ b/OvmfPkg/AmdSev/AmdSevX64.dsc
+@@ -492,8 +492,8 @@
+   gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareBase64|0
+   gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwWorkingBase|0
+   gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareBase|0
+-  gEfiMdeModulePkgTokenSpaceGuid.PcdVideoHorizontalResolution|1280
+-  gEfiMdeModulePkgTokenSpaceGuid.PcdVideoVerticalResolution|800
++  gEfiMdeModulePkgTokenSpaceGuid.PcdVideoHorizontalResolution|1024
++  gEfiMdeModulePkgTokenSpaceGuid.PcdVideoVerticalResolution|768
+   gEfiMdeModulePkgTokenSpaceGuid.PcdConOutRow|0
+   gEfiMdeModulePkgTokenSpaceGuid.PcdConOutColumn|0
+   gEfiMdeModulePkgTokenSpaceGuid.PcdAcpiS3Enable|FALSE
+diff --git a/OvmfPkg/Bhyve/BhyveX64.dsc b/OvmfPkg/Bhyve/BhyveX64.dsc
+index 131f16f..d74a0f1 100644
+--- a/OvmfPkg/Bhyve/BhyveX64.dsc
++++ b/OvmfPkg/Bhyve/BhyveX64.dsc
+@@ -538,8 +538,8 @@
+   gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareBase64|0
+   gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwWorkingBase|0
+   gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareBase|0
+-  gEfiMdeModulePkgTokenSpaceGuid.PcdVideoHorizontalResolution|800
+-  gEfiMdeModulePkgTokenSpaceGuid.PcdVideoVerticalResolution|600
++  gEfiMdeModulePkgTokenSpaceGuid.PcdVideoHorizontalResolution|1024
++  gEfiMdeModulePkgTokenSpaceGuid.PcdVideoVerticalResolution|768
+   gEfiMdeModulePkgTokenSpaceGuid.PcdAcpiS3Enable|FALSE
+   gUefiOvmfPkgTokenSpaceGuid.PcdOvmfHostBridgePciDevId|0
+   gUefiOvmfPkgTokenSpaceGuid.PcdPciIoBase|0x0
+diff --git a/OvmfPkg/Include/Dsc/OvmfDisplayPcds.dsc.inc b/OvmfPkg/Include/Dsc/OvmfDisplayPcds.dsc.inc
+index ecd22b0..19b8062 100644
+--- a/OvmfPkg/Include/Dsc/OvmfDisplayPcds.dsc.inc
++++ b/OvmfPkg/Include/Dsc/OvmfDisplayPcds.dsc.inc
+@@ -2,8 +2,8 @@
+ #    SPDX-License-Identifier: BSD-2-Clause-Patent
+ ##
+ 
+-  gEfiMdeModulePkgTokenSpaceGuid.PcdVideoHorizontalResolution|1280
+-  gEfiMdeModulePkgTokenSpaceGuid.PcdVideoVerticalResolution|800
++  gEfiMdeModulePkgTokenSpaceGuid.PcdVideoHorizontalResolution|1024
++  gEfiMdeModulePkgTokenSpaceGuid.PcdVideoVerticalResolution|768
+   gEfiMdeModulePkgTokenSpaceGuid.PcdSetupVideoHorizontalResolution|1280
+   gEfiMdeModulePkgTokenSpaceGuid.PcdSetupVideoVerticalResolution|800
+   gEfiMdeModulePkgTokenSpaceGuid.PcdConOutRow|0
+diff --git a/OvmfPkg/IntelTdx/IntelTdxX64.dsc b/OvmfPkg/IntelTdx/IntelTdxX64.dsc
+index 18fd116..32d6495 100644
+--- a/OvmfPkg/IntelTdx/IntelTdxX64.dsc
++++ b/OvmfPkg/IntelTdx/IntelTdxX64.dsc
+@@ -485,8 +485,8 @@
+   gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwWorkingBase|0
+   gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareBase|0
+ 
+-  gEfiMdeModulePkgTokenSpaceGuid.PcdVideoHorizontalResolution|800
+-  gEfiMdeModulePkgTokenSpaceGuid.PcdVideoVerticalResolution|600
++  gEfiMdeModulePkgTokenSpaceGuid.PcdVideoHorizontalResolution|1024
++  gEfiMdeModulePkgTokenSpaceGuid.PcdVideoVerticalResolution|768
+   gEfiMdeModulePkgTokenSpaceGuid.PcdAcpiS3Enable|FALSE
+   gUefiOvmfPkgTokenSpaceGuid.PcdOvmfHostBridgePciDevId|0
+   gUefiOvmfPkgTokenSpaceGuid.PcdPciIoBase|0x0
 diff --git a/OvmfPkg/LoongArchVirt/LoongArchVirtQemu.dsc b/OvmfPkg/LoongArchVirt/LoongArchVirtQemu.dsc
 index b4418f7..c88f4da 100644
 --- a/OvmfPkg/LoongArchVirt/LoongArchVirtQemu.dsc
