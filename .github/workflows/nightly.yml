@@ -82,7 +82,7 @@ jobs:
           set -e
           dd if=/dev/zero of=edk2-ovmf/ovmf-code-aarch64.fd bs=1 count=0 seek=67108864
           dd if=/dev/zero of=edk2-ovmf/ovmf-code-riscv64.fd bs=1 count=0 seek=33554432
-          tar -Jcvf edk2-ovmf.tar.gz edk2-ovmf
+          tar -zcvf edk2-ovmf.tar.gz edk2-ovmf
           tar -Jcvf edk2-ovmf.tar.xz edk2-ovmf
 
       - name: Tag new nightly release
