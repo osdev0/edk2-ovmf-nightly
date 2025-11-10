@@ -1,8 +1,8 @@
 name: Nightly EDK2 OVMF Build
 
-on:
-  schedule:
-    - cron: '0 0 * * *'
+on: push
+  #schedule:
+  #  - cron: '0 0 * * *'
 
 jobs:
   nightly:
@@ -72,13 +72,18 @@ jobs:
 
 
       - name: Set TAG_DATE variable
-        run: echo "TAG_DATE=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+        run: echo "TAG_DATE=$(date -u +'%Y%m%dT%H%M%SZ')" >> $GITHUB_ENV
 
       - name: Rename output directory
         run: mv output edk2-ovmf
 
       - name: Create release tarball
-        run: tar -Jcvf edk2-ovmf.tar.xz edk2-ovmf
+        run: |
+          set -e
+          dd if=/dev/zero of=edk2-ovmf/ovmf-code-aarch64.fd bs=1 count=0 seek=67108864
+          dd if=/dev/zero of=edk2-ovmf/ovmf-code-riscv64.fd bs=1 count=0 seek=33554432
+          tar -Jcvf edk2-ovmf.tar.gz edk2-ovmf
+          tar -Jcvf edk2-ovmf.tar.xz edk2-ovmf
 
       - name: Tag new nightly release
         run: git tag nightly-$TAG_DATE && git push --tags
@@ -90,6 +95,7 @@ jobs:
           tag_name: nightly-${{ env.TAG_DATE }}
           body: Images of an up to date EDK2 OVMF nightly build.
           files: |
+            edk2-ovmf.tar.gz
             edk2-ovmf.tar.xz
             edk2-ovmf/*
         env:
