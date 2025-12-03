@@ -100,6 +100,5 @@ jobs:
           files: |
             edk2-ovmf.tar.gz
             edk2-ovmf.tar.xz
-            edk2-ovmf/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
