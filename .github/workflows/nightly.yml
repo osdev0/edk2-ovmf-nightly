@@ -39,33 +39,33 @@ jobs:
 
           export PACKAGES_PATH="$(pwd -P)"/edk2
 
-          export GCC5_AARCH64_PREFIX=aarch64-linux-
-          export GCC5_LOONGARCH64_PREFIX=loongarch64-linux-
-          export GCC5_RISCV64_PREFIX=riscv64-linux-
+          export GCC_AARCH64_PREFIX=aarch64-linux-
+          export GCC_LOONGARCH64_PREFIX=loongarch64-linux-
+          export GCC_RISCV64_PREFIX=riscv64-linux-
 
           set +e
           . edk2/edksetup.sh
           set -e
           make -C edk2/BaseTools
 
-          build -b RELEASE -t GCC5 -a AARCH64 -p ArmVirtPkg/ArmVirtQemu.dsc
-          build -b RELEASE -t GCC5 -a LOONGARCH64 -p OvmfPkg/LoongArchVirt/LoongArchVirtQemu.dsc
-          build -b RELEASE -t GCC5 -a RISCV64 -p OvmfPkg/RiscVVirt/RiscVVirtQemu.dsc
-          build -b RELEASE -t GCC5 -a X64 -p OvmfPkg/OvmfPkgX64.dsc -D FD_SIZE_2MB
+          build -b RELEASE -t GCC -a AARCH64 -p ArmVirtPkg/ArmVirtQemu.dsc
+          build -b RELEASE -t GCC -a LOONGARCH64 -p OvmfPkg/LoongArchVirt/LoongArchVirtQemu.dsc
+          build -b RELEASE -t GCC -a RISCV64 -p OvmfPkg/RiscVVirt/RiscVVirtQemu.dsc
+          build -b RELEASE -t GCC -a X64 -p OvmfPkg/OvmfPkgX64.dsc -D FD_SIZE_2MB
 
           mkdir -p output
 
-          cp Build/ArmVirtQemu-AArch64/RELEASE_GCC5/FV/QEMU_EFI.fd  output/ovmf-code-aarch64.fd
-          cp Build/ArmVirtQemu-AArch64/RELEASE_GCC5/FV/QEMU_VARS.fd output/ovmf-vars-aarch64.fd
+          cp Build/ArmVirtQemu-AArch64/RELEASE_GCC/FV/QEMU_EFI.fd  output/ovmf-code-aarch64.fd
+          cp Build/ArmVirtQemu-AArch64/RELEASE_GCC/FV/QEMU_VARS.fd output/ovmf-vars-aarch64.fd
 
-          cp Build/LoongArchVirtQemu/RELEASE_GCC5/FV/QEMU_EFI.fd  output/ovmf-code-loongarch64.fd
-          cp Build/LoongArchVirtQemu/RELEASE_GCC5/FV/QEMU_VARS.fd output/ovmf-vars-loongarch64.fd
+          cp Build/LoongArchVirtQemu/RELEASE_GCC/FV/QEMU_EFI.fd  output/ovmf-code-loongarch64.fd
+          cp Build/LoongArchVirtQemu/RELEASE_GCC/FV/QEMU_VARS.fd output/ovmf-vars-loongarch64.fd
 
-          cp Build/RiscVVirtQemu/RELEASE_GCC5/FV/RISCV_VIRT_CODE.fd output/ovmf-code-riscv64.fd
-          cp Build/RiscVVirtQemu/RELEASE_GCC5/FV/RISCV_VIRT_VARS.fd output/ovmf-vars-riscv64.fd
+          cp Build/RiscVVirtQemu/RELEASE_GCC/FV/RISCV_VIRT_CODE.fd output/ovmf-code-riscv64.fd
+          cp Build/RiscVVirtQemu/RELEASE_GCC/FV/RISCV_VIRT_VARS.fd output/ovmf-vars-riscv64.fd
 
-          cp Build/OvmfX64/RELEASE_GCC5/FV/OVMF_CODE.fd output/ovmf-code-x86_64.fd
-          cp Build/OvmfX64/RELEASE_GCC5/FV/OVMF_VARS.fd output/ovmf-vars-x86_64.fd
+          cp Build/OvmfX64/RELEASE_GCC/FV/OVMF_CODE.fd output/ovmf-code-x86_64.fd
+          cp Build/OvmfX64/RELEASE_GCC/FV/OVMF_VARS.fd output/ovmf-vars-x86_64.fd
 
           # Support for IA32 was dropped upstream
           wget -O output/ovmf-code-ia32.fd https://github.com/osdev0/edk2-ovmf-nightly/releases/download/nightly-2025-09-09/ovmf-code-ia32.fd
