@@ -36,7 +36,7 @@ index 62ee806..f332a82 100644
    gEfiMdeModulePkgTokenSpaceGuid.PcdSetupVideoVerticalResolution|480
  
 diff --git a/ArmVirtPkg/ArmVirtQemu.dsc b/ArmVirtPkg/ArmVirtQemu.dsc
-index 9d85ef6..4e6dce8 100644
+index a38a1d8..267e9d8 100644
 --- a/ArmVirtPkg/ArmVirtQemu.dsc
 +++ b/ArmVirtPkg/ArmVirtQemu.dsc
 @@ -257,7 +257,7 @@
@@ -58,7 +58,7 @@ index 9d85ef6..4e6dce8 100644
  [LibraryClasses.common.PEI_CORE, LibraryClasses.common.PEIM]
  !if $(TPM2_ENABLE) == TRUE
 diff --git a/ArmVirtPkg/ArmVirtQemuKernel.dsc b/ArmVirtPkg/ArmVirtQemuKernel.dsc
-index ebdb7dc..e6d9749 100644
+index d257ca4..60f755a 100644
 --- a/ArmVirtPkg/ArmVirtQemuKernel.dsc
 +++ b/ArmVirtPkg/ArmVirtQemuKernel.dsc
 @@ -215,7 +215,7 @@
@@ -95,23 +95,23 @@ index 2ec264a..db9dbe6 100644
  ################################################################################
  #
 diff --git a/EmulatorPkg/EmulatorPkg.dsc b/EmulatorPkg/EmulatorPkg.dsc
-index 5bba746..6a3ddf5 100644
+index eb2a817..0b874ed 100644
 --- a/EmulatorPkg/EmulatorPkg.dsc
 +++ b/EmulatorPkg/EmulatorPkg.dsc
-@@ -310,7 +310,7 @@
- [PcdsDynamicHii.common.DEFAULT]
-   gEfiMdeModulePkgTokenSpaceGuid.PcdConOutColumn|L"Setup"|gEmuSystemConfigGuid|0x0|80
-   gEfiMdeModulePkgTokenSpaceGuid.PcdConOutRow|L"Setup"|gEmuSystemConfigGuid|0x4|25
+@@ -343,7 +343,7 @@
+ !ifdef NO_PLATFORM_BOOT_DELAYS
+   gEfiMdePkgTokenSpaceGuid.PcdPlatformBootTimeOut|L"Timeout"|gEfiGlobalVariableGuid|0x0|0
+ !else
 -  gEfiMdePkgTokenSpaceGuid.PcdPlatformBootTimeOut|L"Timeout"|gEfiGlobalVariableGuid|0x0|10
 +  gEfiMdePkgTokenSpaceGuid.PcdPlatformBootTimeOut|L"Timeout"|gEfiGlobalVariableGuid|0x0|0
+ !endif
  
  [Components]
- !if "IA32" in $(ARCH) || "X64" in $(ARCH)
 diff --git a/OvmfPkg/AmdSev/AmdSevX64.dsc b/OvmfPkg/AmdSev/AmdSevX64.dsc
-index 8e7e69d..a49d2f5 100644
+index 266c725..32d713b 100644
 --- a/OvmfPkg/AmdSev/AmdSevX64.dsc
 +++ b/OvmfPkg/AmdSev/AmdSevX64.dsc
-@@ -492,8 +492,8 @@
+@@ -508,8 +508,8 @@
    gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareBase64|0
    gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwWorkingBase|0
    gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareBase|0
@@ -194,10 +194,10 @@ index b4418f7..c88f4da 100644
  [PcdsPatchableInModule.common]
    gEfiMdeModulePkgTokenSpaceGuid.PcdSerialRegisterBase|0x0
 diff --git a/OvmfPkg/RiscVVirt/RiscVVirtQemu.dsc b/OvmfPkg/RiscVVirt/RiscVVirtQemu.dsc
-index c23130a..cb31cd8 100644
+index d3ae3af..018bc06 100644
 --- a/OvmfPkg/RiscVVirt/RiscVVirtQemu.dsc
 +++ b/OvmfPkg/RiscVVirt/RiscVVirtQemu.dsc
-@@ -232,7 +232,7 @@
+@@ -234,7 +234,7 @@
    gEfiMdeModulePkgTokenSpaceGuid.PcdSmbiosEntryPointProvideMethod|0x2
  
  [PcdsDynamicDefault.common]
@@ -206,7 +206,7 @@ index c23130a..cb31cd8 100644
  
    ## If TRUE, OvmfPkg/AcpiPlatformDxe will not wait for PCI
    #  enumeration to complete before installing ACPI tables.
-@@ -286,7 +286,7 @@
+@@ -288,7 +288,7 @@
    gEfiSecurityPkgTokenSpaceGuid.PcdTpm2AcpiTableRev|L"TCG2_VERSION"|gTcg2ConfigFormSetGuid|0x8|3|NV,BS
  !endif
  
@@ -216,7 +216,7 @@ index c23130a..cb31cd8 100644
  [LibraryClasses.common.PEI_CORE, LibraryClasses.common.PEIM]
  !if $(TPM2_ENABLE) == TRUE
 diff --git a/UefiPayloadPkg/UefiPayloadPkg.dsc b/UefiPayloadPkg/UefiPayloadPkg.dsc
-index db4875e..6b7fa78 100644
+index 0b2025b..451b602 100644
 --- a/UefiPayloadPkg/UefiPayloadPkg.dsc
 +++ b/UefiPayloadPkg/UefiPayloadPkg.dsc
 @@ -34,7 +34,7 @@
@@ -228,7 +228,7 @@ index db4875e..6b7fa78 100644
    DEFINE BOOT_MANAGER_ESCAPE          = FALSE
    DEFINE ATA_ENABLE                   = TRUE
    DEFINE SD_ENABLE                    = TRUE
-@@ -866,8 +866,8 @@
+@@ -869,8 +869,8 @@
    gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseSize|0xfffffff
    gEfiMdePkgTokenSpaceGuid.PcdPciIoTranslation|0x0
  
