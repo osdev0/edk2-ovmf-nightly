@@ -2,11 +2,14 @@ name: Nightly EDK2 OVMF Build
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - 'trunk'
   schedule:
     - cron: '0 0 * * *'
 
 jobs:
-  nightly:
+  build:
     name: Nightly EDK2 OVMF Build
     runs-on: ubuntu-latest
     container: archlinux:latest
@@ -25,7 +28,7 @@ jobs:
         run: |
           set -ex
 
-          GCC_VERSION=15.2.0
+          GCC_VERSION=16.1.0
 
           for i in aarch64 loongarch64 riscv64; do
               wget https://mirrors.edge.kernel.org/pub/tools/crosstool/files/bin/x86_64/$GCC_VERSION/x86_64-gcc-$GCC_VERSION-nolibc-$i-linux.tar.gz
@@ -94,8 +97,8 @@ jobs:
       - name: Create nightly release
         uses: softprops/action-gh-release@v3
         with:
-          name: Nightly Build ${{ env.TAG_DATE }}
-          tag_name: nightly-${{ env.TAG_DATE }}
+          name: Nightly Build (${{ env.TAG_DATE }})
+          tag_name: ${{ env.TAG_DATE }}
           body: Images of an up to date EDK2 OVMF nightly build.
           files: |
             edk2-ovmf.tar.gz
