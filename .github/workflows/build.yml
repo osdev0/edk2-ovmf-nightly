@@ -38,6 +38,8 @@ jobs:
 
           git clone --recursive --depth=1 https://github.com/tianocore/edk2.git
 
+          echo "EDK2_UPSTREAM_COMMIT=$(git -C edk2 rev-parse HEAD)" >> $GITHUB_ENV
+
           ( cd edk2 && patch -p1 <../ovmf.patch )
 
           export PACKAGES_PATH="$(pwd -P)"/edk2
@@ -91,15 +93,15 @@ jobs:
           tar -zcvf edk2-ovmf.tar.gz edk2-ovmf
           tar -Jcvf edk2-ovmf.tar.xz edk2-ovmf
 
-      - name: Tag new nightly release
-        run: git tag nightly-$TAG_DATE && git push --tags
+      - name: Tag new release
+        run: git tag $TAG_DATE && git push --tags
 
-      - name: Create nightly release
+      - name: Create release
         uses: softprops/action-gh-release@v3
         with:
           name: Nightly Build (${{ env.TAG_DATE }})
           tag_name: ${{ env.TAG_DATE }}
-          body: Images of an up to date EDK2 OVMF nightly build.
+          body: Binary images of an up to date EDK2 OVMF nightly build (upstream commit `${{ env.EDK2_UPSTREAM_COMMIT }}`).
           files: |
             edk2-ovmf.tar.gz
             edk2-ovmf.tar.xz
