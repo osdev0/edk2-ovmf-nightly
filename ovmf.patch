@@ -1,8 +1,8 @@
 diff --git a/ArmVirtPkg/ArmVirtCloudHv.dsc b/ArmVirtPkg/ArmVirtCloudHv.dsc
-index 2dfd286..4fdafea 100644
+index 122e0e8..53c27a5 100644
 --- a/ArmVirtPkg/ArmVirtCloudHv.dsc
 +++ b/ArmVirtPkg/ArmVirtCloudHv.dsc
-@@ -166,7 +166,7 @@
+@@ -149,7 +149,7 @@
    gEfiMdeModulePkgTokenSpaceGuid.PcdSmbiosEntryPointProvideMethod|0x2
  
  [PcdsDynamicDefault.common]
@@ -12,10 +12,10 @@ index 2dfd286..4fdafea 100644
    ## If TRUE, OvmfPkg/AcpiPlatformDxe will not wait for PCI
    #  enumeration to complete before installing ACPI tables.
 diff --git a/ArmVirtPkg/ArmVirtKvmTool.dsc b/ArmVirtPkg/ArmVirtKvmTool.dsc
-index 62ee806..f332a82 100644
+index b91a64a..d39046d 100644
 --- a/ArmVirtPkg/ArmVirtKvmTool.dsc
 +++ b/ArmVirtPkg/ArmVirtKvmTool.dsc
-@@ -178,7 +178,7 @@
+@@ -158,7 +158,7 @@
    gEfiMdeModulePkgTokenSpaceGuid.PcdSerialRegisterBase|0x0
  
  [PcdsDynamicHii]
@@ -24,7 +24,7 @@ index 62ee806..f332a82 100644
  
  [PcdsDynamicDefault.common]
    gArmTokenSpaceGuid.PcdArmArchTimerSecIntrNum|0x0
-@@ -209,8 +209,8 @@
+@@ -189,8 +189,8 @@
    # Set video resolution for boot options and for text setup.
    # PlatformDxe can set the former at runtime.
    #
@@ -36,10 +36,10 @@ index 62ee806..f332a82 100644
    gEfiMdeModulePkgTokenSpaceGuid.PcdSetupVideoVerticalResolution|480
  
 diff --git a/ArmVirtPkg/ArmVirtQemu.dsc b/ArmVirtPkg/ArmVirtQemu.dsc
-index a38a1d8..267e9d8 100644
+index 0212be4..8181015 100644
 --- a/ArmVirtPkg/ArmVirtQemu.dsc
 +++ b/ArmVirtPkg/ArmVirtQemu.dsc
-@@ -257,7 +257,7 @@
+@@ -243,7 +243,7 @@
    gEfiMdeModulePkgTokenSpaceGuid.PcdSmbiosEntryPointProvideMethod|0x2
  
  [PcdsDynamicDefault.common]
@@ -48,7 +48,7 @@ index a38a1d8..267e9d8 100644
  
    gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareBase     | 0
    gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareBase64   | 0
-@@ -325,7 +325,7 @@
+@@ -311,7 +311,7 @@
    gEfiSecurityPkgTokenSpaceGuid.PcdTpm2AcpiTableRev|L"TCG2_VERSION"|gTcg2ConfigFormSetGuid|0x8|3|NV,BS
  !endif
  
@@ -58,10 +58,10 @@ index a38a1d8..267e9d8 100644
  [LibraryClasses.common.PEI_CORE, LibraryClasses.common.PEIM]
  !if $(TPM2_ENABLE) == TRUE
 diff --git a/ArmVirtPkg/ArmVirtQemuKernel.dsc b/ArmVirtPkg/ArmVirtQemuKernel.dsc
-index d257ca4..60f755a 100644
+index 7fdb3b5..9f6160d 100644
 --- a/ArmVirtPkg/ArmVirtQemuKernel.dsc
 +++ b/ArmVirtPkg/ArmVirtQemuKernel.dsc
-@@ -215,7 +215,7 @@
+@@ -201,7 +201,7 @@
    gArmTokenSpaceGuid.PcdFvBaseAddress|0x0
  
  [PcdsDynamicDefault.common]
@@ -70,7 +70,7 @@ index d257ca4..60f755a 100644
  
    gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareBase     | 0
    gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareBase64   | 0
-@@ -254,8 +254,8 @@
+@@ -240,8 +240,8 @@
    # Set video resolution for boot options and for text setup.
    # PlatformDxe can set the former at runtime.
    #
@@ -82,10 +82,10 @@ index d257ca4..60f755a 100644
    gEfiMdeModulePkgTokenSpaceGuid.PcdSetupVideoVerticalResolution|480
    gEfiMdeModulePkgTokenSpaceGuid.PcdConOutRow|0
 diff --git a/ArmVirtPkg/ArmVirtXen.dsc b/ArmVirtPkg/ArmVirtXen.dsc
-index 2ec264a..db9dbe6 100644
+index bff4dfd..e233842 100644
 --- a/ArmVirtPkg/ArmVirtXen.dsc
 +++ b/ArmVirtPkg/ArmVirtXen.dsc
-@@ -131,7 +131,7 @@
+@@ -117,7 +117,7 @@
    gArmTokenSpaceGuid.PcdGicRedistributorsBase|0x0
    gArmTokenSpaceGuid.PcdGicInterruptInterfaceBase|0x0
  
@@ -95,10 +95,10 @@ index 2ec264a..db9dbe6 100644
  ################################################################################
  #
 diff --git a/EmulatorPkg/EmulatorPkg.dsc b/EmulatorPkg/EmulatorPkg.dsc
-index eb2a817..0b874ed 100644
+index e554f54..2fa1918 100644
 --- a/EmulatorPkg/EmulatorPkg.dsc
 +++ b/EmulatorPkg/EmulatorPkg.dsc
-@@ -343,7 +343,7 @@
+@@ -345,7 +345,7 @@
  !ifdef NO_PLATFORM_BOOT_DELAYS
    gEfiMdePkgTokenSpaceGuid.PcdPlatformBootTimeOut|L"Timeout"|gEfiGlobalVariableGuid|0x0|0
  !else
@@ -108,10 +108,10 @@ index eb2a817..0b874ed 100644
  
  [Components]
 diff --git a/OvmfPkg/AmdSev/AmdSevX64.dsc b/OvmfPkg/AmdSev/AmdSevX64.dsc
-index 266c725..32d713b 100644
+index 2fbcd01..2f726ae 100644
 --- a/OvmfPkg/AmdSev/AmdSevX64.dsc
 +++ b/OvmfPkg/AmdSev/AmdSevX64.dsc
-@@ -508,8 +508,8 @@
+@@ -512,8 +512,8 @@
    gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareBase64|0
    gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwWorkingBase|0
    gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareBase|0
@@ -122,21 +122,6 @@ index 266c725..32d713b 100644
    gEfiMdeModulePkgTokenSpaceGuid.PcdConOutRow|0
    gEfiMdeModulePkgTokenSpaceGuid.PcdConOutColumn|0
    gEfiMdeModulePkgTokenSpaceGuid.PcdAcpiS3Enable|FALSE
-diff --git a/OvmfPkg/Bhyve/BhyveX64.dsc b/OvmfPkg/Bhyve/BhyveX64.dsc
-index 131f16f..d74a0f1 100644
---- a/OvmfPkg/Bhyve/BhyveX64.dsc
-+++ b/OvmfPkg/Bhyve/BhyveX64.dsc
-@@ -538,8 +538,8 @@
-   gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareBase64|0
-   gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwWorkingBase|0
-   gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareBase|0
--  gEfiMdeModulePkgTokenSpaceGuid.PcdVideoHorizontalResolution|800
--  gEfiMdeModulePkgTokenSpaceGuid.PcdVideoVerticalResolution|600
-+  gEfiMdeModulePkgTokenSpaceGuid.PcdVideoHorizontalResolution|1024
-+  gEfiMdeModulePkgTokenSpaceGuid.PcdVideoVerticalResolution|768
-   gEfiMdeModulePkgTokenSpaceGuid.PcdAcpiS3Enable|FALSE
-   gUefiOvmfPkgTokenSpaceGuid.PcdOvmfHostBridgePciDevId|0
-   gUefiOvmfPkgTokenSpaceGuid.PcdPciIoBase|0x0
 diff --git a/OvmfPkg/Include/Dsc/OvmfDisplayPcds.dsc.inc b/OvmfPkg/Include/Dsc/OvmfDisplayPcds.dsc.inc
 index ecd22b0..19b8062 100644
 --- a/OvmfPkg/Include/Dsc/OvmfDisplayPcds.dsc.inc
@@ -153,10 +138,10 @@ index ecd22b0..19b8062 100644
    gEfiMdeModulePkgTokenSpaceGuid.PcdSetupVideoVerticalResolution|800
    gEfiMdeModulePkgTokenSpaceGuid.PcdConOutRow|0
 diff --git a/OvmfPkg/IntelTdx/IntelTdxX64.dsc b/OvmfPkg/IntelTdx/IntelTdxX64.dsc
-index 18fd116..32d6495 100644
+index 4717d0c..2ada810 100644
 --- a/OvmfPkg/IntelTdx/IntelTdxX64.dsc
 +++ b/OvmfPkg/IntelTdx/IntelTdxX64.dsc
-@@ -485,8 +485,8 @@
+@@ -489,8 +489,8 @@
    gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwWorkingBase|0
    gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareBase|0
  
@@ -168,10 +153,10 @@ index 18fd116..32d6495 100644
    gUefiOvmfPkgTokenSpaceGuid.PcdOvmfHostBridgePciDevId|0
    gUefiOvmfPkgTokenSpaceGuid.PcdPciIoBase|0x0
 diff --git a/OvmfPkg/LoongArchVirt/LoongArchVirtQemu.dsc b/OvmfPkg/LoongArchVirt/LoongArchVirtQemu.dsc
-index b4418f7..c88f4da 100644
+index aa8c104..e6cc0c5 100644
 --- a/OvmfPkg/LoongArchVirt/LoongArchVirtQemu.dsc
 +++ b/OvmfPkg/LoongArchVirt/LoongArchVirtQemu.dsc
-@@ -413,9 +413,9 @@
+@@ -482,9 +482,9 @@
    gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwWorkingBase64     | 0
    gEfiMdeModulePkgTokenSpaceGuid.PcdEmuVariableNvStoreReserved         | 0
    gEfiMdeModulePkgTokenSpaceGuid.PcdPciDisableBusEnumeration           | FALSE
@@ -184,20 +169,20 @@ index b4418f7..c88f4da 100644
  
    # Set video resolution for text setup.
    gEfiMdeModulePkgTokenSpaceGuid.PcdSetupVideoHorizontalResolution     | 640
-@@ -442,7 +442,7 @@
-   gUefiOvmfPkgTokenSpaceGuid.PcdQemuSmbiosValidated|TRUE
+@@ -519,7 +519,7 @@
+ !endif
  
  [PcdsDynamicHii]
 -  gEfiMdePkgTokenSpaceGuid.PcdPlatformBootTimeOut|L"Timeout"|gEfiGlobalVariableGuid|0x0|3
 +  gEfiMdePkgTokenSpaceGuid.PcdPlatformBootTimeOut|L"Timeout"|gEfiGlobalVariableGuid|0x0|0
- 
- [PcdsPatchableInModule.common]
-   gEfiMdeModulePkgTokenSpaceGuid.PcdSerialRegisterBase|0x0
+ !if $(TPM2_CONFIG_ENABLE) == TRUE
+   gEfiSecurityPkgTokenSpaceGuid.PcdTcgPhysicalPresenceInterfaceVer|L"TCG2_VERSION"|gTcg2ConfigFormSetGuid|0x0|"1.3"|NV,BS
+   gEfiSecurityPkgTokenSpaceGuid.PcdTpm2AcpiTableRev|L"TCG2_VERSION"|gTcg2ConfigFormSetGuid|0x8|3|NV,BS
 diff --git a/OvmfPkg/RiscVVirt/RiscVVirtQemu.dsc b/OvmfPkg/RiscVVirt/RiscVVirtQemu.dsc
-index d3ae3af..018bc06 100644
+index 09dd86f..165b27c 100644
 --- a/OvmfPkg/RiscVVirt/RiscVVirtQemu.dsc
 +++ b/OvmfPkg/RiscVVirt/RiscVVirtQemu.dsc
-@@ -234,7 +234,7 @@
+@@ -259,7 +259,7 @@
    gEfiMdeModulePkgTokenSpaceGuid.PcdSmbiosEntryPointProvideMethod|0x2
  
  [PcdsDynamicDefault.common]
@@ -206,20 +191,20 @@ index d3ae3af..018bc06 100644
  
    ## If TRUE, OvmfPkg/AcpiPlatformDxe will not wait for PCI
    #  enumeration to complete before installing ACPI tables.
-@@ -288,7 +288,7 @@
+@@ -313,7 +313,7 @@
    gEfiSecurityPkgTokenSpaceGuid.PcdTpm2AcpiTableRev|L"TCG2_VERSION"|gTcg2ConfigFormSetGuid|0x8|3|NV,BS
  !endif
  
 -  gEfiMdePkgTokenSpaceGuid.PcdPlatformBootTimeOut|L"Timeout"|gEfiGlobalVariableGuid|0x0|5
 +  gEfiMdePkgTokenSpaceGuid.PcdPlatformBootTimeOut|L"Timeout"|gEfiGlobalVariableGuid|0x0|0
  
- [LibraryClasses.common.PEI_CORE, LibraryClasses.common.PEIM]
- !if $(TPM2_ENABLE) == TRUE
+ ################################################################################
+ #
 diff --git a/UefiPayloadPkg/UefiPayloadPkg.dsc b/UefiPayloadPkg/UefiPayloadPkg.dsc
-index 0b2025b..451b602 100644
+index 34fb690..aed2c1c 100644
 --- a/UefiPayloadPkg/UefiPayloadPkg.dsc
 +++ b/UefiPayloadPkg/UefiPayloadPkg.dsc
-@@ -34,7 +34,7 @@
+@@ -36,7 +36,7 @@
    DEFINE SIO_BUS_ENABLE               = FALSE
    DEFINE SECURITY_STUB_ENABLE         = TRUE
    DEFINE SMM_SUPPORT                  = FALSE
@@ -228,7 +213,7 @@ index 0b2025b..451b602 100644
    DEFINE BOOT_MANAGER_ESCAPE          = FALSE
    DEFINE ATA_ENABLE                   = TRUE
    DEFINE SD_ENABLE                    = TRUE
-@@ -869,8 +869,8 @@
+@@ -873,8 +873,8 @@
    gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseSize|0xfffffff
    gEfiMdePkgTokenSpaceGuid.PcdPciIoTranslation|0x0
  
