@@ -30,7 +30,7 @@ jobs:
 
           GCC_VERSION=16.2.0
 
-          for i in aarch64 loongarch64 riscv64; do
+          for i in aarch64 loongarch64 riscv64 x86_64; do
               wget https://mirrors.edge.kernel.org/pub/tools/crosstool/files/bin/x86_64/$GCC_VERSION/x86_64-gcc-$GCC_VERSION-nolibc-$i-linux.tar.gz
               tar -xf x86_64-gcc-$GCC_VERSION-nolibc-$i-linux.tar.gz
               export PATH="$(pwd -P)"/gcc-$GCC_VERSION-nolibc/$i-linux/bin:"$PATH"
@@ -47,6 +47,13 @@ jobs:
           export GCC_AARCH64_PREFIX=aarch64-linux-
           export GCC_LOONGARCH64_PREFIX=loongarch64-linux-
           export GCC_RISCV64_PREFIX=riscv64-linux-
+
+          # EDK2 has no GCC_X64_PREFIX/GCC_IA32_PREFIX environment hook: its
+          # tools_def.template resolves the native (IA32/X64) tool paths from
+          # ENV(GCC_BIN) instead, which defaults to empty and therefore picks
+          # up the host gcc. It is plain string concatenation, so a target
+          # triple prefix works there just like the cross-arch variables above.
+          export GCC_BIN=x86_64-linux-
 
           set +e
           . edk2/edksetup.sh
