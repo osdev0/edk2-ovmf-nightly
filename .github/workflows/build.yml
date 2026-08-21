@@ -28,7 +28,7 @@ jobs:
         run: |
           set -ex
 
-          GCC_VERSION=16.1.0
+          GCC_VERSION=16.2.0
 
           for i in aarch64 loongarch64 riscv64; do
               wget https://mirrors.edge.kernel.org/pub/tools/crosstool/files/bin/x86_64/$GCC_VERSION/x86_64-gcc-$GCC_VERSION-nolibc-$i-linux.tar.gz
