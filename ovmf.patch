@@ -1,21 +1,21 @@
 diff --git a/ArmVirtPkg/ArmVirtCloudHv.dsc b/ArmVirtPkg/ArmVirtCloudHv.dsc
-index 122e0e8..53c27a5 100644
+index 4d9ad6037..706ca2c91 100644
 --- a/ArmVirtPkg/ArmVirtCloudHv.dsc
 +++ b/ArmVirtPkg/ArmVirtCloudHv.dsc
-@@ -149,7 +149,7 @@
+@@ -130,7 +130,7 @@
    gEfiMdeModulePkgTokenSpaceGuid.PcdSmbiosEntryPointProvideMethod|0x2
  
  [PcdsDynamicDefault.common]
 -  gEfiMdePkgTokenSpaceGuid.PcdPlatformBootTimeOut|3
 +  gEfiMdePkgTokenSpaceGuid.PcdPlatformBootTimeOut|0
  
-   ## If TRUE, OvmfPkg/AcpiPlatformDxe will not wait for PCI
-   #  enumeration to complete before installing ACPI tables.
+   # System Memory Size -- 1 MB initially, actual size will be fetched from DT
+   gArmTokenSpaceGuid.PcdSystemMemorySize|0x00100000
 diff --git a/ArmVirtPkg/ArmVirtKvmTool.dsc b/ArmVirtPkg/ArmVirtKvmTool.dsc
-index b91a64a..d39046d 100644
+index 95e639225..456207f05 100644
 --- a/ArmVirtPkg/ArmVirtKvmTool.dsc
 +++ b/ArmVirtPkg/ArmVirtKvmTool.dsc
-@@ -158,7 +158,7 @@
+@@ -157,15 +157,15 @@
    gEfiMdeModulePkgTokenSpaceGuid.PcdSerialRegisterBase|0x0
  
  [PcdsDynamicHii]
@@ -23,8 +23,7 @@ index b91a64a..d39046d 100644
 +  gEfiMdePkgTokenSpaceGuid.PcdPlatformBootTimeOut|L"Timeout"|gEfiGlobalVariableGuid|0x0|0
  
  [PcdsDynamicDefault.common]
-   gArmTokenSpaceGuid.PcdArmArchTimerSecIntrNum|0x0
-@@ -189,8 +189,8 @@
+   #
    # Set video resolution for boot options and for text setup.
    # PlatformDxe can set the former at runtime.
    #
@@ -36,19 +35,19 @@ index b91a64a..d39046d 100644
    gEfiMdeModulePkgTokenSpaceGuid.PcdSetupVideoVerticalResolution|480
  
 diff --git a/ArmVirtPkg/ArmVirtQemu.dsc b/ArmVirtPkg/ArmVirtQemu.dsc
-index 0212be4..8181015 100644
+index 0f05fda93..a3f8a2d0a 100644
 --- a/ArmVirtPkg/ArmVirtQemu.dsc
 +++ b/ArmVirtPkg/ArmVirtQemu.dsc
-@@ -243,7 +243,7 @@
+@@ -226,7 +226,7 @@
    gEfiMdeModulePkgTokenSpaceGuid.PcdSmbiosEntryPointProvideMethod|0x2
  
  [PcdsDynamicDefault.common]
 -  gEfiMdePkgTokenSpaceGuid.PcdPlatformBootTimeOut|3
 +  gEfiMdePkgTokenSpaceGuid.PcdPlatformBootTimeOut|0
  
-   gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareBase     | 0
-   gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareBase64   | 0
-@@ -311,7 +311,7 @@
+   ## PL031 RealTimeClock
+   gArmPlatformTokenSpaceGuid.PcdPL031RtcBase|0x0
+@@ -264,7 +264,7 @@
    gEfiSecurityPkgTokenSpaceGuid.PcdTpm2AcpiTableRev|L"TCG2_VERSION"|gTcg2ConfigFormSetGuid|0x8|3|NV,BS
  !endif
  
@@ -58,19 +57,19 @@ index 0212be4..8181015 100644
  [LibraryClasses.common.PEI_CORE, LibraryClasses.common.PEIM]
  !if $(TPM2_ENABLE) == TRUE
 diff --git a/ArmVirtPkg/ArmVirtQemuKernel.dsc b/ArmVirtPkg/ArmVirtQemuKernel.dsc
-index 7fdb3b5..9f6160d 100644
+index e1020f21a..9944c678c 100644
 --- a/ArmVirtPkg/ArmVirtQemuKernel.dsc
 +++ b/ArmVirtPkg/ArmVirtQemuKernel.dsc
-@@ -201,7 +201,7 @@
+@@ -184,7 +184,7 @@
    gArmTokenSpaceGuid.PcdFvBaseAddress|0x0
  
  [PcdsDynamicDefault.common]
 -  gEfiMdePkgTokenSpaceGuid.PcdPlatformBootTimeOut|3
 +  gEfiMdePkgTokenSpaceGuid.PcdPlatformBootTimeOut|0
  
-   gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareBase     | 0
-   gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareBase64   | 0
-@@ -240,8 +240,8 @@
+   ## PL031 RealTimeClock
+   gArmPlatformTokenSpaceGuid.PcdPL031RtcBase|0x0
+@@ -193,8 +193,8 @@
    # Set video resolution for boot options and for text setup.
    # PlatformDxe can set the former at runtime.
    #
@@ -82,20 +81,20 @@ index 7fdb3b5..9f6160d 100644
    gEfiMdeModulePkgTokenSpaceGuid.PcdSetupVideoVerticalResolution|480
    gEfiMdeModulePkgTokenSpaceGuid.PcdConOutRow|0
 diff --git a/ArmVirtPkg/ArmVirtXen.dsc b/ArmVirtPkg/ArmVirtXen.dsc
-index bff4dfd..e233842 100644
+index 0b7574485..91cceb889 100644
 --- a/ArmVirtPkg/ArmVirtXen.dsc
 +++ b/ArmVirtPkg/ArmVirtXen.dsc
-@@ -117,7 +117,7 @@
-   gArmTokenSpaceGuid.PcdGicRedistributorsBase|0x0
-   gArmTokenSpaceGuid.PcdGicInterruptInterfaceBase|0x0
+@@ -92,7 +92,7 @@
+   gArmTokenSpaceGuid.PcdFvBaseAddress|0x0
  
+ [PcdsDynamicDefault.common]
 -  gEfiMdePkgTokenSpaceGuid.PcdPlatformBootTimeOut|3
 +  gEfiMdePkgTokenSpaceGuid.PcdPlatformBootTimeOut|0
  
  ################################################################################
  #
 diff --git a/EmulatorPkg/EmulatorPkg.dsc b/EmulatorPkg/EmulatorPkg.dsc
-index e554f54..2fa1918 100644
+index 7766d5d56..2c9b91e1a 100644
 --- a/EmulatorPkg/EmulatorPkg.dsc
 +++ b/EmulatorPkg/EmulatorPkg.dsc
 @@ -345,7 +345,7 @@
@@ -108,7 +107,7 @@ index e554f54..2fa1918 100644
  
  [Components]
 diff --git a/OvmfPkg/AmdSev/AmdSevX64.dsc b/OvmfPkg/AmdSev/AmdSevX64.dsc
-index 2fbcd01..2f726ae 100644
+index 2fbcd01ce..2f726ae8c 100644
 --- a/OvmfPkg/AmdSev/AmdSevX64.dsc
 +++ b/OvmfPkg/AmdSev/AmdSevX64.dsc
 @@ -512,8 +512,8 @@
@@ -123,7 +122,7 @@ index 2fbcd01..2f726ae 100644
    gEfiMdeModulePkgTokenSpaceGuid.PcdConOutColumn|0
    gEfiMdeModulePkgTokenSpaceGuid.PcdAcpiS3Enable|FALSE
 diff --git a/OvmfPkg/Include/Dsc/OvmfDisplayPcds.dsc.inc b/OvmfPkg/Include/Dsc/OvmfDisplayPcds.dsc.inc
-index ecd22b0..19b8062 100644
+index ecd22b0bd..19b806210 100644
 --- a/OvmfPkg/Include/Dsc/OvmfDisplayPcds.dsc.inc
 +++ b/OvmfPkg/Include/Dsc/OvmfDisplayPcds.dsc.inc
 @@ -2,8 +2,8 @@
@@ -138,10 +137,10 @@ index ecd22b0..19b8062 100644
    gEfiMdeModulePkgTokenSpaceGuid.PcdSetupVideoVerticalResolution|800
    gEfiMdeModulePkgTokenSpaceGuid.PcdConOutRow|0
 diff --git a/OvmfPkg/IntelTdx/IntelTdxX64.dsc b/OvmfPkg/IntelTdx/IntelTdxX64.dsc
-index 4717d0c..2ada810 100644
+index be2ddacaa..118fc7856 100644
 --- a/OvmfPkg/IntelTdx/IntelTdxX64.dsc
 +++ b/OvmfPkg/IntelTdx/IntelTdxX64.dsc
-@@ -489,8 +489,8 @@
+@@ -500,8 +500,8 @@
    gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwWorkingBase|0
    gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareBase|0
  
@@ -153,7 +152,7 @@ index 4717d0c..2ada810 100644
    gUefiOvmfPkgTokenSpaceGuid.PcdOvmfHostBridgePciDevId|0
    gUefiOvmfPkgTokenSpaceGuid.PcdPciIoBase|0x0
 diff --git a/OvmfPkg/LoongArchVirt/LoongArchVirtQemu.dsc b/OvmfPkg/LoongArchVirt/LoongArchVirtQemu.dsc
-index aa8c104..e6cc0c5 100644
+index 8f0ef8547..430b2480e 100644
 --- a/OvmfPkg/LoongArchVirt/LoongArchVirtQemu.dsc
 +++ b/OvmfPkg/LoongArchVirt/LoongArchVirtQemu.dsc
 @@ -482,9 +482,9 @@
@@ -179,7 +178,7 @@ index aa8c104..e6cc0c5 100644
    gEfiSecurityPkgTokenSpaceGuid.PcdTcgPhysicalPresenceInterfaceVer|L"TCG2_VERSION"|gTcg2ConfigFormSetGuid|0x0|"1.3"|NV,BS
    gEfiSecurityPkgTokenSpaceGuid.PcdTpm2AcpiTableRev|L"TCG2_VERSION"|gTcg2ConfigFormSetGuid|0x8|3|NV,BS
 diff --git a/OvmfPkg/RiscVVirt/RiscVVirtQemu.dsc b/OvmfPkg/RiscVVirt/RiscVVirtQemu.dsc
-index 09dd86f..165b27c 100644
+index acbf161f0..8ffc2b19e 100644
 --- a/OvmfPkg/RiscVVirt/RiscVVirtQemu.dsc
 +++ b/OvmfPkg/RiscVVirt/RiscVVirtQemu.dsc
 @@ -259,7 +259,7 @@
@@ -201,7 +200,7 @@ index 09dd86f..165b27c 100644
  ################################################################################
  #
 diff --git a/UefiPayloadPkg/UefiPayloadPkg.dsc b/UefiPayloadPkg/UefiPayloadPkg.dsc
-index 34fb690..aed2c1c 100644
+index 34fb690d1..aed2c1c66 100644
 --- a/UefiPayloadPkg/UefiPayloadPkg.dsc
 +++ b/UefiPayloadPkg/UefiPayloadPkg.dsc
 @@ -36,7 +36,7 @@
