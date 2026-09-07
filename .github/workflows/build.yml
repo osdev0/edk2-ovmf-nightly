@@ -30,7 +30,7 @@ jobs:
 
           GCC_VERSION=16.2.0
 
-          for i in aarch64 loongarch64 riscv64 x86_64; do
+          for i in aarch64 i386 loongarch64 riscv64 x86_64; do
               wget https://mirrors.edge.kernel.org/pub/tools/crosstool/files/bin/x86_64/$GCC_VERSION/x86_64-gcc-$GCC_VERSION-nolibc-$i-linux.tar.gz
               tar -xf x86_64-gcc-$GCC_VERSION-nolibc-$i-linux.tar.gz
               export PATH="$(pwd -P)"/gcc-$GCC_VERSION-nolibc/$i-linux/bin:"$PATH"
@@ -41,6 +41,8 @@ jobs:
           echo "EDK2_UPSTREAM_COMMIT=$(git -C edk2 rev-parse HEAD)" >> $GITHUB_ENV
 
           ( cd edk2 && patch -p1 <../ovmf.patch )
+          # Restores OvmfPkgIa32, deleted upstream in 1fb88ffe2.
+          ( cd edk2 && patch -p1 <../ovmf-ia32.patch )
 
           export PACKAGES_PATH="$(pwd -P)"/edk2
 
@@ -53,6 +55,8 @@ jobs:
           # ENV(GCC_BIN) instead, which defaults to empty and therefore picks
           # up the host gcc. It is plain string concatenation, so a target
           # triple prefix works there just like the cross-arch variables above.
+          # The one variable covers both native arches, so the IA32 build
+          # overrides it on its own command line.
           export GCC_BIN=x86_64-linux-
 
           set +e
@@ -64,6 +68,7 @@ jobs:
           build -b RELEASE -t GCC -a LOONGARCH64 -p OvmfPkg/LoongArchVirt/LoongArchVirtQemu.dsc
           build -b RELEASE -t GCC -a RISCV64 -p OvmfPkg/RiscVVirt/RiscVVirtQemu.dsc
           build -b RELEASE -t GCC -a X64 -p OvmfPkg/OvmfPkgX64.dsc -D FD_SIZE_2MB
+          GCC_BIN=i386-linux- build -b RELEASE -t GCC -a IA32 -p OvmfPkg/OvmfPkgIa32.dsc -D FD_SIZE_2MB
 
           mkdir -p output
 
@@ -79,9 +84,8 @@ jobs:
           cp Build/OvmfX64/RELEASE_GCC/FV/OVMF_CODE.fd output/ovmf-code-x86_64.fd
           cp Build/OvmfX64/RELEASE_GCC/FV/OVMF_VARS.fd output/ovmf-vars-x86_64.fd
 
-          # Support for IA32 was dropped upstream
-          wget -O output/ovmf-code-ia32.fd https://github.com/osdev0/edk2-ovmf-nightly/releases/download/nightly-2025-09-09/ovmf-code-ia32.fd
-          wget -O output/ovmf-vars-ia32.fd https://github.com/osdev0/edk2-ovmf-nightly/releases/download/nightly-2025-09-09/ovmf-vars-ia32.fd
+          cp Build/OvmfIa32/RELEASE_GCC/FV/OVMF_CODE.fd output/ovmf-code-ia32.fd
+          cp Build/OvmfIa32/RELEASE_GCC/FV/OVMF_VARS.fd output/ovmf-vars-ia32.fd
 
 
       - name: Set TAG_DATE variable
