@@ -34,6 +34,18 @@ index 95e639225..456207f05 100644
    gEfiMdeModulePkgTokenSpaceGuid.PcdSetupVideoHorizontalResolution|640
    gEfiMdeModulePkgTokenSpaceGuid.PcdSetupVideoVerticalResolution|480
  
+diff --git a/ArmVirtPkg/ArmVirtQemuFvMain.fdf.inc b/ArmVirtPkg/ArmVirtQemuFvMain.fdf.inc
+index 3fb6a1da9..6895da0c8 100644
+--- a/ArmVirtPkg/ArmVirtQemuFvMain.fdf.inc
++++ b/ArmVirtPkg/ArmVirtQemuFvMain.fdf.inc
+@@ -170,6 +170,7 @@ READ_LOCK_STATUS   = TRUE
+   #
+   INF OvmfPkg/QemuRamfbDxe/QemuRamfbDxe.inf
+   INF OvmfPkg/VirtioGpuDxe/VirtioGpu.inf
++  INF OvmfPkg/VirtioInputDxe/VirtioInput.inf
+   INF OvmfPkg/PlatformDxe/Platform.inf
+ 
+   #
 diff --git a/ArmVirtPkg/ArmVirtQemuKernel.dsc b/ArmVirtPkg/ArmVirtQemuKernel.dsc
 index e1020f21a..9944c678c 100644
 --- a/ArmVirtPkg/ArmVirtQemuKernel.dsc
@@ -130,7 +142,7 @@ index be2ddacaa..118fc7856 100644
    gUefiOvmfPkgTokenSpaceGuid.PcdOvmfHostBridgePciDevId|0
    gUefiOvmfPkgTokenSpaceGuid.PcdPciIoBase|0x0
 diff --git a/OvmfPkg/LoongArchVirt/LoongArchVirtQemu.dsc b/OvmfPkg/LoongArchVirt/LoongArchVirtQemu.dsc
-index 8f0ef8547..430b2480e 100644
+index 8f0ef8547..943f1d9fb 100644
 --- a/OvmfPkg/LoongArchVirt/LoongArchVirtQemu.dsc
 +++ b/OvmfPkg/LoongArchVirt/LoongArchVirtQemu.dsc
 @@ -482,9 +482,9 @@
@@ -155,8 +167,28 @@ index 8f0ef8547..430b2480e 100644
  !if $(TPM2_CONFIG_ENABLE) == TRUE
    gEfiSecurityPkgTokenSpaceGuid.PcdTcgPhysicalPresenceInterfaceVer|L"TCG2_VERSION"|gTcg2ConfigFormSetGuid|0x0|"1.3"|NV,BS
    gEfiSecurityPkgTokenSpaceGuid.PcdTpm2AcpiTableRev|L"TCG2_VERSION"|gTcg2ConfigFormSetGuid|0x8|3|NV,BS
+@@ -776,6 +776,7 @@
+   OvmfPkg/QemuVideoDxe/QemuVideoDxe.inf
+   OvmfPkg/QemuRamfbDxe/QemuRamfbDxe.inf
+   OvmfPkg/VirtioGpuDxe/VirtioGpu.inf
++  OvmfPkg/VirtioInputDxe/VirtioInput.inf
+   OvmfPkg/PlatformDxe/Platform.inf
+ 
+   #
+diff --git a/OvmfPkg/LoongArchVirt/LoongArchVirtQemu.fdf b/OvmfPkg/LoongArchVirt/LoongArchVirtQemu.fdf
+index cecc7b0b7..4fca4ebce 100644
+--- a/OvmfPkg/LoongArchVirt/LoongArchVirtQemu.fdf
++++ b/OvmfPkg/LoongArchVirt/LoongArchVirtQemu.fdf
+@@ -138,6 +138,7 @@ INF  MdeModulePkg/Universal/Console/GraphicsConsoleDxe/GraphicsConsoleDxe.inf
+ INF  OvmfPkg/QemuVideoDxe/QemuVideoDxe.inf
+ INF  OvmfPkg/QemuRamfbDxe/QemuRamfbDxe.inf
+ INF  OvmfPkg/VirtioGpuDxe/VirtioGpu.inf
++INF  OvmfPkg/VirtioInputDxe/VirtioInput.inf
+ INF  OvmfPkg/PlatformDxe/Platform.inf
+ 
+ #
 diff --git a/OvmfPkg/RiscVVirt/RiscVVirtQemu.dsc b/OvmfPkg/RiscVVirt/RiscVVirtQemu.dsc
-index acbf161f0..8ffc2b19e 100644
+index acbf161f0..7dea099be 100644
 --- a/OvmfPkg/RiscVVirt/RiscVVirtQemu.dsc
 +++ b/OvmfPkg/RiscVVirt/RiscVVirtQemu.dsc
 @@ -259,7 +259,7 @@
@@ -176,6 +208,26 @@ index acbf161f0..8ffc2b19e 100644
 +  gEfiMdePkgTokenSpaceGuid.PcdPlatformBootTimeOut|L"Timeout"|gEfiGlobalVariableGuid|0x0|0
  
  ################################################################################
+ #
+@@ -561,6 +561,7 @@
+   OvmfPkg/QemuVideoDxe/QemuVideoDxe.inf
+   OvmfPkg/QemuRamfbDxe/QemuRamfbDxe.inf
+   OvmfPkg/VirtioGpuDxe/VirtioGpu.inf
++  OvmfPkg/VirtioInputDxe/VirtioInput.inf
+   OvmfPkg/PlatformDxe/Platform.inf
+ 
+   #
+diff --git a/OvmfPkg/RiscVVirt/RiscVVirtQemu.fdf b/OvmfPkg/RiscVVirt/RiscVVirtQemu.fdf
+index cbba3d852..d180aae14 100644
+--- a/OvmfPkg/RiscVVirt/RiscVVirtQemu.fdf
++++ b/OvmfPkg/RiscVVirt/RiscVVirtQemu.fdf
+@@ -225,6 +225,7 @@ INF  OvmfPkg/Virtio10Dxe/Virtio10.inf
+ INF  OvmfPkg/QemuVideoDxe/QemuVideoDxe.inf
+ INF  OvmfPkg/QemuRamfbDxe/QemuRamfbDxe.inf
+ INF  OvmfPkg/VirtioGpuDxe/VirtioGpu.inf
++INF  OvmfPkg/VirtioInputDxe/VirtioInput.inf
+ INF  OvmfPkg/PlatformDxe/Platform.inf
+ 
  #
 diff --git a/UefiPayloadPkg/UefiPayloadPkg.dsc b/UefiPayloadPkg/UefiPayloadPkg.dsc
 index 34fb690d1..aed2c1c66 100644
