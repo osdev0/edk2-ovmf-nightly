@@ -34,18 +34,6 @@ index 95e639225..456207f05 100644
    gEfiMdeModulePkgTokenSpaceGuid.PcdSetupVideoHorizontalResolution|640
    gEfiMdeModulePkgTokenSpaceGuid.PcdSetupVideoVerticalResolution|480
  
-diff --git a/ArmVirtPkg/ArmVirtQemuFvMain.fdf.inc b/ArmVirtPkg/ArmVirtQemuFvMain.fdf.inc
-index 3fb6a1da9..6895da0c8 100644
---- a/ArmVirtPkg/ArmVirtQemuFvMain.fdf.inc
-+++ b/ArmVirtPkg/ArmVirtQemuFvMain.fdf.inc
-@@ -170,6 +170,7 @@ READ_LOCK_STATUS   = TRUE
-   #
-   INF OvmfPkg/QemuRamfbDxe/QemuRamfbDxe.inf
-   INF OvmfPkg/VirtioGpuDxe/VirtioGpu.inf
-+  INF OvmfPkg/VirtioInputDxe/VirtioInput.inf
-   INF OvmfPkg/PlatformDxe/Platform.inf
- 
-   #
 diff --git a/ArmVirtPkg/ArmVirtQemuKernel.dsc b/ArmVirtPkg/ArmVirtQemuKernel.dsc
 index e1020f21a..9944c678c 100644
 --- a/ArmVirtPkg/ArmVirtQemuKernel.dsc
